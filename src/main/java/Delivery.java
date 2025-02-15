@@ -18,9 +18,9 @@ public class Delivery {
     }
 
     private int getDistanceCost() {
-        if (distance >= 30) return 300;
-        if (distance >= 10) return 200;
-        if (distance >= 2) return 100;
+        if (distance > 30) return 300;
+        if (distance > 10) return 200;
+        if (distance > 2) return 100;
         if (distance >= 0) return 50;
         throw new IllegalArgumentException("Distance should be non-negative");
     }
