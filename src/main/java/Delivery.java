@@ -22,12 +22,12 @@ public class Delivery {
         if (distance > 10) return 200;
         if (distance > 2) return 100;
         if (distance >= 0) return 50;
-        throw new IllegalArgumentException("Distance should be non-negative");
+        throw new IllegalArgumentException(ErrorMessages.NEGATIVE_DISTANCE);
     }
 
     public double getDeliveryCost() {
         if (isFragile && distance > 30) {
-            throw new IllegalArgumentException("Fragile items cannot be delivered beyond 30 km.");
+            throw new IllegalArgumentException(ErrorMessages.FRAGILE_ITEM_BEYOND_30_KM);
         }
         double cost = (getDistanceCost() + getFragileCost() + this.dimensions.getDimensionsCost()) * this.workload.getWorkloadRate();
         return Math.max(cost, MIN_DELIVERY_COST);

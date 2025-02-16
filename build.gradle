@@ -1,5 +1,16 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.11.2'
+}
+
+allure {
+    report {
+        version.set("2.21.0")
+    }
+    adapter {
+        autoconfigure.set(true)
+        aspectjWeaver.set(true)
+    }
 }
 
 group = 'org.example'
@@ -12,8 +23,15 @@ repositories {
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'io.qameta.allure:allure-junit5:2.21.0'
+}
+
+tasks.register('cleanAllureResults', Delete) {
+    delete fileTree("build/allure-results")
 }
 
 test {
     useJUnitPlatform()
+    dependsOn(cleanAllureResults)
+    finalizedBy("cleanAllureReport", "allureReport")
 }
