@@ -66,7 +66,7 @@ public class DeliveryTest {
 
         Exception e = assertThrows(IllegalArgumentException.class, delivery::getDeliveryCost,
                 "Expected IllegalArgumentException");
-        assertEquals("Fragile items cannot be delivered beyond 30 km.", e.getMessage());
+        assertEquals(ErrorMessages.FRAGILE_ITEM_BEYOND_30_KM, e.getMessage());
     }
 
     @Test
@@ -76,6 +76,6 @@ public class DeliveryTest {
 
         Exception e = assertThrows(IllegalArgumentException.class, delivery::getDeliveryCost,
                 "Expected IllegalArgumentException");
-        assertEquals("Distance should be non-negative", e.getMessage());
+        assertEquals(ErrorMessages.NEGATIVE_DISTANCE, e.getMessage());
     }
 }
