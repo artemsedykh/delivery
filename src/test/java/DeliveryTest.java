@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class DeliveryTest {
     @Test
     @Tag("Positive")
+    @DisplayName("Применение минимальной стоимости доставки")
     void testMinimalDeliveryConditionsCost() {
         Delivery delivery = new Delivery(0.1, Dimensions.SMALL, false, Workload.NORMAL);
 
@@ -36,7 +37,7 @@ public class DeliveryTest {
         }
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "Тест {index}: {0} км, Габариты: {1}, Хрупкий: {2}, Загруженность: {3} → Ожидаемая стоимость: {4}")
     @ArgumentsSource(DeliveryArgumentsProvider.class)
     @Tag("Positive")
     void testParametrizedCostCalculation(double distance, Dimensions dimensions, boolean isFragile, Workload workload, double expectedResult) {
@@ -49,6 +50,7 @@ public class DeliveryTest {
 
     @Test
     @Tag("Positive")
+    @DisplayName("Расчёт стоимости доставки на расстояние более 30 км для нехрупкого груза")
     void testNotFragileItemBeyond30KmCost() {
         Delivery delivery = new Delivery(35, Dimensions.LARGE, false, Workload.INCREASED);
 
@@ -71,6 +73,7 @@ public class DeliveryTest {
 
     @Test
     @Tag("Negative")
+    @DisplayName("Отрицательное расстояние")
     void testNegativeDistanceCost() {
         Delivery delivery = new Delivery(-1, Dimensions.LARGE, true, Workload.NORMAL);
 
