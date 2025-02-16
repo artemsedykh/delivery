@@ -26,7 +26,12 @@ dependencies {
     testImplementation 'io.qameta.allure:allure-junit5:2.21.0'
 }
 
+tasks.register('cleanAllureResults', Delete) {
+    delete fileTree("build/allure-results")
+}
+
 test {
     useJUnitPlatform()
-    finalizedBy("allureReport")
+    dependsOn(cleanAllureResults)
+    finalizedBy("cleanAllureReport", "allureReport")
 }
